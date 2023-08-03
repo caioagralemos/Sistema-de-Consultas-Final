@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if user.paciente %}
+    <div class='px-5 py-2'>
+      <h1 class='ms-2'><i class="uil uil-medkit"></i> Consultas Passadas de {{ user.first_name }}</h1>
+      {% if consultas %}
+        <div style='margin:4px, 4px;
+        padding:4px;
+        height: 600px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align:justify;'>
+          {% for consulta in consultas %}
+              <div class="card m-2">
+                <div class="card-body">
+                  <h5 class="card-title">{{ consulta.medico }}</h5>
+                  <h6 class="card-subtitle mb-2 text-body-secondary">{{ consulta.data }}</h6>
+                  <p class="card-text">Serviço - {{ consulta.servico|capfirst }}</p>
+                </div>
+              </div>
+          {% endfor %}
+        </div>
+        <a class="icon-link icon-link-hover link-dark link-underline-dark link-underline-opacity-25" href="{% url 'dashboard' %}">
+          Próximas Consultas
+        </a>
+      {% else %}
+        <p>Nenhuma consulta disponível.</p>
+      {% endif %}
+    </div>
+  {% else %}
+    <h1 class='p-5 text-center'>404 not found</h1>
+  {% endif %}
+{% endblock %}
